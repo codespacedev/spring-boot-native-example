@@ -12,7 +12,7 @@ on:
 jobs:
   java_test:
     name: "java"
-    uses: codespacedev/spring-boot-native-example/.github/workflows/wc_java_test.yml@main
+    uses: codespacedev/commons/.github/workflows/wc_java_test.yml@main
     secrets:
       G_TOKEN: ${{secrets.CI_TOKEN_WORKFLOW}}
       CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
