@@ -69,6 +69,10 @@ jobs:
         with:
           java-version: ${{ steps.java_info.outputs.java_version }}
           distribution: 'adopt'
+      - name: "Resolve Dependencies & Plugins"
+        run: |
+          ${{ steps.java_info.outputs.cmd_resolve_deps }}
+          ${{ steps.java_info.outputs.cmd_resolve_plugs }}
       - name: "Test & Build"
         if: ${{ inputs.skip_test != 'true' }}
         run: ${{ steps.java_info.outputs.cmd_test_build }}
