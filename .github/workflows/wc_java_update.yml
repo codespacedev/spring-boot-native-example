@@ -47,7 +47,7 @@ jobs:
         with:
           fetch-depth: 5
           ref: ${{ steps.inputs.outputs.ref }}
-          token: ${{secrets.G_TOKEN || secrets.GITHUB_TOKEN}}
+          token: ${{ secrets.G_TOKEN || secrets.CI_TOKEN_WORKFLOW || github.token }}
       - name: "Read Java Info"
         id: "java_info"
         uses: YunaBraska/java-info-action@main
@@ -58,9 +58,9 @@ jobs:
           distribution: 'adopt'
       - name: "Update"
         run: |
-          {{ steps.java_info.outputs.cmd_update_wrapper }}
-          {{ steps.java_info.outputs.cmd_update_props }}
-          {{ steps.java_info.outputs.cmd_update_parent }}
+          ${{ steps.java_info.outputs.cmd_update_wrapper }}
+          ${{ steps.java_info.outputs.cmd_update_props }}
+          ${{ steps.java_info.outputs.cmd_update_parent }}
       - name: "Read Git Info"
         id: "git_info"
         uses: YunaBraska/git-info-action@main
@@ -71,7 +71,7 @@ jobs:
           python-version: '3.x'
       - name: "Set Version"
         id: "semver"
-        if: steps.git_info.outputs.has_changes == 'true' || steps.git_info.outputs.has_local_changes == 'true'
+        if: steps.git_info.outputs.has_changes == 'true' || steps.git_info.outputs.has_local_changes
         run: |
           echo ""
           echo "has_changes [${{ steps.git_info.outputs.has_changes }}]"
