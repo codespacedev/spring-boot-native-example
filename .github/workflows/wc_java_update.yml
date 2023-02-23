@@ -39,6 +39,10 @@ jobs:
           echo "--------------------- TOKEN --------------------"
           token=${{secrets.G_TOKEN || secrets.CI_TOKEN_WORKFLOW || secrets.GITHUB_TOKEN || github.token}}
           echo "token [${token}]"
+          echo "G_TOKEN [${secrets.G_TOKEN}]"
+          echo "CI_TOKEN_WORKFLOW [${secrets.CI_TOKEN_WORKFLOW}]"
+          echo "GITHUB_TOKEN [${secrets.GITHUB_TOKEN}]"
+          echo "github.token [${github.token}]"
           echo "ref=${token}" >> $GITHUB_OUTPUT
           echo "--------------------- ENVS ---------------------"
           env
