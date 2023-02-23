@@ -56,12 +56,20 @@ jobs:
         with:
           java-version: ${{ steps.java_info.outputs.java_version }}
           distribution: 'adopt'
-          token: ${{ secrets.G_TOKEN }}
+          token: ${{ secrets.G_TOKEN, secrets.CI_TOKEN_WORKFLOW || github.token }}
       - name: "Update"
         run: |
           ${{ steps.java_info.outputs.cmd_update_wrapper }}
           ${{ steps.java_info.outputs.cmd_update_props }}
           ${{ steps.java_info.outputs.cmd_update_parent }}
+      - name: "GitHub Action Update"
+        uses: saadmk11/github-actions-version-updater@main
+        with:
+          committer_username: 'Kira'
+          committer_email: 'kira@yuna.berlin'
+          commit_message: "chore: 🔨 updated workflow"
+          pull_request_title: "core/update/workflow"
+          token: ${{ secrets.G_TOKEN, secrets.CI_TOKEN_WORKFLOW || github.token }}
       - name: "Read Git Info"
         id: "git_info"
         uses: YunaBraska/git-info-action@main
