@@ -61,6 +61,9 @@ jobs:
           ${{ steps.java_info.outputs.cmd_update_wrapper }}
           ${{ steps.java_info.outputs.cmd_update_props }}
           ${{ steps.java_info.outputs.cmd_update_parent }}
+      - name: "Test & Build"
+        if: ${{ inputs.skip_test != 'true' }}
+        run: ${{ steps.java_info.outputs.cmd_test_build }}
       - name: "Read Git Info"
         id: "git_info"
         uses: YunaBraska/git-info-action@main
@@ -79,7 +82,7 @@ jobs:
           echo "tag_latest [${{ steps.git_info.outputs.tag_latest }}]"
           echo "semver_strategy [${{ steps.inputs.outputs.semver_strategy }}]"
           mkdir -p target
-          wget -nc -nv https://raw.githubusercontent.com/YunaBraska/YunaBraska/main/.github/scripts/python/functions/semver.py -P target
+          wget -nc -nv https://raw.githubusercontent.com/YunaBraska/YunaBraska/main/.github/scripts/python/functions/semver.py -P target || true
           chmod +x target/semver.py
 
           new_version=$(target/semver.py --version=${{ steps.git_info.outputs.tag_latest }} --increase=${{ steps.inputs.outputs.semver_strategy }} --output=result)
