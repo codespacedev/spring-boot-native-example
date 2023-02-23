@@ -56,7 +56,7 @@ jobs:
         with:
           java-version: ${{ steps.java_info.outputs.java_version }}
           distribution: 'adopt'
-          token: ${{ secrets.G_TOKEN, secrets.CI_TOKEN_WORKFLOW || github.token }}
+          token: ${{ secrets.G_TOKEN || secrets.CI_TOKEN_WORKFLOW || github.token }}
       - name: "Update"
         run: |
           ${{ steps.java_info.outputs.cmd_update_wrapper }}
@@ -69,7 +69,7 @@ jobs:
           committer_email: 'kira@yuna.berlin'
           commit_message: "chore: 🔨 updated workflow"
           pull_request_title: "core/update/workflow"
-          token: ${{ secrets.G_TOKEN, secrets.CI_TOKEN_WORKFLOW || github.token }}
+          token: ${{ secrets.G_TOKEN || secrets.CI_TOKEN_WORKFLOW || github.token }}
       - name: "Read Git Info"
         id: "git_info"
         uses: YunaBraska/git-info-action@main
