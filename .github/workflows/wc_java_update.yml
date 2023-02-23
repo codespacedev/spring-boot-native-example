@@ -47,7 +47,7 @@ jobs:
         with:
           fetch-depth: 5
           ref: ${{ steps.inputs.outputs.ref }}
-          token: ${{secrets.G_TOKEN || secrets.GITHUB_TOKEN}}
+          token: ${{secrets.G_TOKEN || secrets.CI_TOKEN_WORKFLOW || secrets.GITHUB_TOKEN}}
       - name: "Read Java Info"
         id: "java_info"
         uses: YunaBraska/java-info-action@main
@@ -58,9 +58,9 @@ jobs:
           distribution: 'adopt'
       - name: "Update"
         run: |
-          {{ steps.java_info.outputs.cmd_update_wrapper }}
-          {{ steps.java_info.outputs.cmd_update_props }}
-          {{ steps.java_info.outputs.cmd_update_parent }}
+          ${{ steps.java_info.outputs.cmd_update_wrapper }}
+          ${{ steps.java_info.outputs.cmd_update_props }}
+          ${{ steps.java_info.outputs.cmd_update_parent }}
       - name: "Read Git Info"
         id: "git_info"
         uses: YunaBraska/git-info-action@main

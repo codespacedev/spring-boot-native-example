@@ -58,7 +58,7 @@ jobs:
         with:
           fetch-depth: 5
           ref: ${{ steps.inputs.outputs.ref }}
-          token: ${{secrets.G_TOKEN || secrets.GITHUB_TOKEN}}
+          token: ${{secrets.G_TOKEN || secrets.CI_TOKEN_WORKFLOW || secrets.GITHUB_TOKEN}}
       - name: "Read Java Info"
         id: "java_info"
         if: ${{ inputs.skip_test != 'true' }}
