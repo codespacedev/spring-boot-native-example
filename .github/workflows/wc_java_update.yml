@@ -36,16 +36,6 @@ jobs:
           semver_strategy="${semver_strategy_A:-${semver_strategy_B:-${semver_strategy_C:-patch}}}"
           echo "semver_strategy [$semver_strategy]"
           echo "semver_strategy=$semver_strategy" >> $GITHUB_OUTPUT
-          echo "--------------------- TOKEN --------------------"
-          G_TOKEN=${{secrets.G_TOKEN}}
-          CI_TOKEN_WORKFLOW=${{secrets.CI_TOKEN_WORKFLOW}}
-          GITHUB_TOKEN=${{secrets.GITHUB_TOKEN}}
-          token="${G_TOKEN:-${CI_TOKEN_WORKFLOW:-${GITHUB_TOKEN}}}"
-          echo "token [${token}]"
-          echo "ref=${token}" >> $GITHUB_OUTPUT
-          echo "G_TOKEN [${secrets.G_TOKEN}]"
-          echo "CI_TOKEN_WORKFLOW [${CI_TOKEN_WORKFLOW}]"
-          echo "GITHUB_TOKEN [${GITHUB_TOKEN}}]"
           echo "--------------------- ENVS ---------------------"
           env
         env:
@@ -66,7 +56,7 @@ jobs:
         with:
           java-version: ${{ steps.java_info.outputs.java_version }}
           distribution: 'adopt'
-          token: ${{ steps.inputs.outputs.token }}
+          token: ${{ secrets.G_TOKEN }}
       - name: "Update"
         run: |
           ${{ steps.java_info.outputs.cmd_update_wrapper }}
@@ -90,7 +80,7 @@ jobs:
           echo "tag_latest [${{ steps.git_info.outputs.tag_latest }}]"
           echo "semver_strategy [${{ steps.inputs.outputs.semver_strategy }}]"
           mkdir -p target
-          wget -nc -nv https://raw.githubusercontent.com/YunaBraska/YunaBraska/main/.github/scripts/python/functions/semver.py -P target || true
+          wget -nc -nv https://raw.githubusercontent.com/YunaBraska/YunaBraska/main/.github/scripts/python/functions/semver.py -P target
           chmod +x target/semver.py
 
           new_version=$(target/semver.py --version=${{ steps.git_info.outputs.tag_latest }} --increase=${{ steps.inputs.outputs.semver_strategy }} --output=result)
