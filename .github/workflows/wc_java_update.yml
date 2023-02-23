@@ -43,16 +43,16 @@ jobs:
           ref_B: ${{ github.event.inputs.ref }}
           ref_C: ${{ github.event.client_payload.ref }}
       - name: "Checkout"
-        uses: actions/checkout@main
+        uses: actions/checkout@v3.3.0
         with:
           fetch-depth: 5
           ref: ${{ steps.inputs.outputs.ref }}
           token: ${{ secrets.G_TOKEN || secrets.CI_TOKEN_WORKFLOW || github.token }}
       - name: "Read Java Info"
         id: "java_info"
-        uses: YunaBraska/java-info-action@main
+        uses: YunaBraska/java-info-action@1.5.27
       - name: "Setup Java"
-        uses: actions/setup-java@main
+        uses: actions/setup-java@v3.10.0
         with:
           java-version: ${{ steps.java_info.outputs.java_version }}
           distribution: 'adopt'
@@ -62,7 +62,7 @@ jobs:
           ${{ steps.java_info.outputs.cmd_update_props }}
           ${{ steps.java_info.outputs.cmd_update_parent }}
       - name: "GitHub Action Update"
-        uses: saadmk11/github-actions-version-updater@main
+        uses: saadmk11/github-actions-version-updater@v0.7.3
         with:
           committer_username: 'Kira'
           committer_email: 'kira@yuna.berlin'
@@ -71,10 +71,10 @@ jobs:
           token: ${{ secrets.G_TOKEN || secrets.CI_TOKEN_WORKFLOW || github.token }}
       - name: "Read Git Info"
         id: "git_info"
-        uses: YunaBraska/git-info-action@main
+        uses: YunaBraska/git-info-action@1.0.23
       - name: "Setup Python"
         if: steps.git_info.outputs.has_changes == 'true' || steps.git_info.outputs.has_local_changes == 'true'
-        uses: actions/setup-python@main
+        uses: actions/setup-python@v4.5.0
         with:
           python-version: '3.x'
       - name: "Set Version"
@@ -102,7 +102,7 @@ jobs:
           echo "new_version=$new_version" >> $GITHUB_OUTPUT
       - name: "Push changes"
         if: steps.git_info.outputs.has_changes == 'true' || steps.git_info.outputs.has_local_changes == 'true'
-        uses: stefanzweifel/git-auto-commit-action@master
+        uses: stefanzweifel/git-auto-commit-action@v4.16.0
         with:
           commit_message: "chore: 🏷️ new version [${{ steps.semver.outputs.new_version }}]"
           commit_user_name: "Kira"
