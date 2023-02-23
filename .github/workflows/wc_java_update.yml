@@ -40,14 +40,12 @@ jobs:
           G_TOKEN=${{secrets.G_TOKEN}}
           CI_TOKEN_WORKFLOW=${{secrets.CI_TOKEN_WORKFLOW}}
           GITHUB_TOKEN=${{secrets.GITHUB_TOKEN}}
-          github.token=${{github.token}}
-          token="${G_TOKEN:-${CI_TOKEN_WORKFLOW:-${GITHUB_TOKEN:-${github.token}}}}"
+          token="${G_TOKEN:-${CI_TOKEN_WORKFLOW:-${GITHUB_TOKEN}}}"
           echo "token [${token}]"
           echo "ref=${token}" >> $GITHUB_OUTPUT
           echo "G_TOKEN [${secrets.G_TOKEN}]"
           echo "CI_TOKEN_WORKFLOW [${CI_TOKEN_WORKFLOW}]"
           echo "GITHUB_TOKEN [${GITHUB_TOKEN}}]"
-          echo "github.token [${github.token}]"
           echo "--------------------- ENVS ---------------------"
           env
         env:
