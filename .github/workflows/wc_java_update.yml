@@ -13,7 +13,7 @@ on:
         description: "[semver_strategy] e.g. major,minor,patch,rc,meta [default: patch]"
         required: false
     secrets:
-      GITHUB_TOKEN:
+      G_TOKEN:
         description: "Github token"
         required: false
 
@@ -45,8 +45,9 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@main
         with:
-          fetch-depth: 1
+          fetch-depth: 5
           ref: ${{ steps.inputs.outputs.ref }}
+          token: ${{secrets.G_TOKEN || secrets.GITHUB_TOKEN}}
       - name: "Read Java Info"
         id: "java_info"
         uses: YunaBraska/java-info-action@main

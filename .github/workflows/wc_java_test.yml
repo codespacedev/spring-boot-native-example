@@ -13,7 +13,7 @@ on:
         type: string
         required: false
     secrets:
-      GITHUB_TOKEN:
+      G_TOKEN:
         description: "Github token"
         required: false
       CC_TEST_REPORTER_ID:
@@ -56,8 +56,9 @@ jobs:
         if: ${{ inputs.skip_test != 'true' }}
         uses: actions/checkout@main
         with:
-          fetch-depth: 1
+          fetch-depth: 5
           ref: ${{ steps.inputs.outputs.ref }}
+          token: ${{secrets.G_TOKEN || secrets.GITHUB_TOKEN}}
       - name: "Read Java Info"
         id: "java_info"
         if: ${{ inputs.skip_test != 'true' }}
@@ -71,9 +72,6 @@ jobs:
       - name: "Test & Build"
         if: ${{ inputs.skip_test != 'true' }}
         run: ${{ steps.java_info.outputs.cmd_test_build }}
-        env:
-          GITHUB_USER: 'CodeSpaceUser'
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: "Code Climate [Jacoco]"
         uses: paambaati/codeclimate-action@v3.0.0
         if: steps.inputs.outputs.has_publish_to_code_climate == 'true'
