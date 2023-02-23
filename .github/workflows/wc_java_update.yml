@@ -55,7 +55,7 @@ jobs:
         with:
           fetch-depth: 5
           ref: ${{ steps.inputs.outputs.ref }}
-          token: ${{secrets.G_TOKEN || secrets.CI_TOKEN_WORKFLOW || secrets.GITHUB_TOKEN || github.token}}
+          token: ${{ steps.inputs.outputs.token }}
       - name: "Read Java Info"
         id: "java_info"
         uses: YunaBraska/java-info-action@main
