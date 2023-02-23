@@ -21,8 +21,6 @@ jobs:
   update:
     name: "Update Java"
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     timeout-minutes: 10
     steps:
       - name: "Read Input"
@@ -38,6 +36,10 @@ jobs:
           semver_strategy="${semver_strategy_A:-${semver_strategy_B:-${semver_strategy_C:-patch}}}"
           echo "semver_strategy [$semver_strategy]"
           echo "semver_strategy=$semver_strategy" >> $GITHUB_OUTPUT
+          echo "--------------------- TOKEN --------------------"
+          token=${{secrets.G_TOKEN || secrets.CI_TOKEN_WORKFLOW || secrets.GITHUB_TOKEN || github.token}}
+          echo "token [${token}]"
+          echo "ref=${token}" >> $GITHUB_OUTPUT
           echo "--------------------- ENVS ---------------------"
           env
         env:
@@ -49,6 +51,7 @@ jobs:
         with:
           fetch-depth: 5
           ref: ${{ steps.inputs.outputs.ref }}
+          token: ${{secrets.G_TOKEN || secrets.CI_TOKEN_WORKFLOW || secrets.GITHUB_TOKEN || github.token}}
       - name: "Read Java Info"
         id: "java_info"
         uses: YunaBraska/java-info-action@main
@@ -57,6 +60,7 @@ jobs:
         with:
           java-version: ${{ steps.java_info.outputs.java_version }}
           distribution: 'adopt'
+          token: ${{ steps.inputs.outputs.token }}
       - name: "Update"
         run: |
           ${{ steps.java_info.outputs.cmd_update_wrapper }}
