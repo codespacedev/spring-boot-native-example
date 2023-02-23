@@ -1,13 +1,21 @@
-name: "MVN_TEST"
+name: "MVN_RELEASE"
 
 on:
   workflow_dispatch:
-  push:
-    # Already covered by "auto_release.yml" workflow
+  pull_request_target:
+    types: [ closed ]
     branches:
-      - '!master'
-      - '!main'
-      - '!default'
+      - main
+      - master
+      - default
+    paths:
+      #  trigger ALL files (wildcard that matches any file or folder)
+      - '**'
+      #  trigger not when .yml and .md files that are not located in the .github folder
+      - '!/.github/**/*.yml'
+      - '!/.github/**/*.md'
+  schedule:
+    - cron: "0 7 * * *"
 
 jobs:
   java_update:

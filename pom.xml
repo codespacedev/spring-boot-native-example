@@ -211,7 +211,6 @@
                         <id>integration-test</id>
                         <goals>
                             <goal>integration-test</goal>
-                            <goal>verify</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -267,7 +266,21 @@
                         </configuration>
                     </execution>
                     <execution> <!-- 4 -->
-                        <id>merged-report-generation</id>
+                        <id>merged-report-generation-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution> <!-- 4 -->
+                        <id>merged-report-generation-package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution> <!-- 4 -->
+                        <id>merged-report-generation-verify</id>
                         <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
