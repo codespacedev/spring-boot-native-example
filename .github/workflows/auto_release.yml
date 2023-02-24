@@ -1,4 +1,4 @@
-name: "MVN_RELEASE"
+name: "JAVA_RELEASE"
 
 on:
   workflow_dispatch:
@@ -19,14 +19,21 @@ on:
 
 jobs:
   java_update:
-    name: "java"
+    name: "update"
     uses: codespacedev/commons/.github/workflows/wc_java_update.yml@main
     secrets:
       G_TOKEN: ${{secrets.CI_TOKEN_WORKFLOW}}
   java_test:
     needs: "java_update"
-    name: "java"
+    name: "rest"
     uses: codespacedev/commons/.github/workflows/wc_java_test.yml@main
     secrets:
       G_TOKEN: ${{secrets.CI_TOKEN_WORKFLOW}}
       CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+  release_github:
+    needs: "java_test"
+    if: needs.java_update.outputs.has_changes == 'true' || needs.java_update.outputs.has_local_changes == 'true'
+    name: "release"
+    uses: codespacedev/commons/.github/workflows/wc_release_github.yml@main
+    secrets:
+      G_TOKEN: ${{secrets.CI_TOKEN_WORKFLOW}}

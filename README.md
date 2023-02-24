@@ -61,7 +61,7 @@ Example of how to run *Spring Boot Native* **without parent**
 > Build & Run [`./mvn clean package && docker build -t app-native . && docker run --rm -p 8080:8080 app-native`]
 
 
-[build_shield]: https://github.com/codespacedev/spring-boot-native-example/workflows/MVN_RELEASE/badge.svg
+[build_shield]: https://github.com/codespacedev/spring-boot-native-example/workflows/JAVA_RELEASE/badge.svg
 
 [build_link]: https://github.com/codespacedev/spring-boot-native-example/actions?query=workflow%3AMVN_RELEASE
 

@@ -1,4 +1,4 @@
-name: "MVN_TEST"
+name: "JAVA_TEST"
 
 on:
   workflow_dispatch:
