@@ -138,7 +138,6 @@
                                 <id>build-native</id>
                                 <goals>
                                     <goal>compile-no-fork</goal>
-                                    <goal>build</goal>
                                 </goals>
                                 <phase>package</phase>
                                 <configuration>

@@ -1,5 +1,7 @@
 # SpringBootRestExampleApp
 
+Example of how to run *Spring Boot Native* **without parent**
+
 [![Build][build_shield]][build_link]
 [![Maintainable][maintainable_shield]][maintainable_link]
 [![Coverage][coverage_shield]][coverage_link]
@@ -12,53 +14,60 @@
 ![Label][java_version]
 ![Label][spring_boot]
 
+## Index
 
-Example of how to run *Spring Boot Native* **without parent**
+1. [Rest Endpoints](#rest-endpoints)
+2. [Executable Jar](#executable-jar)
+3. [Native](#native)
+4. [Docker with Native](#docker-with-native)
 
-### Features
-
-* Build executable jar
-* Build native image with graalvm
-
-### Requirements
-
-* [Graalvm](https://www.graalvm.org/22.0/docs/getting-started/#install-graalvm) ([brew](https://github.com/graalvm/homebrew-tap))
-* Create native image (`gu install native-image`)
-
-## Rest
+## Rest Endpoints
 
 * Print all envs (without secrets)
 
 > GET http://localhost:8080/envs
 
-## Jar
+## Executable Jar
 
-> Build [`./mvn clean package`]
+### Requirements
+
+* JDK 17
+* Result: ~ 18mb
+
+> Build [`./mvnw clean package`]
 
 > Run [`java -jar target/app.jar`]
 
-> Build & Run [`./mvn clean package && java -jar target/app.jar`]
+> Build & Run [`./mvnw clean package && java -jar target/app.jar`]
 
 ## Native
 
-> Build [`./mvn clean package -Pnative`]
+### Requirements
+
+* JDK 17
+* [Graalvm](https://www.graalvm.org/22.0/docs/getting-started/#install-graalvm) ([brew](https://github.com/graalvm/homebrew-tap))
+* Create native image (`gu install native-image`)
+* Result: ~ 60mb
+
+> Build [`./mvnw clean package -Pnative`]
 
 > Run [`java -jar target/app.native`]
 
-> Build & Run [`./mvn clean package && target/app.native`]
+> Build & Run [`./mvnw clean package -Pnative && target/app.native`]
 
 ## Docker with Native
 
-> **Note**
-> Only works **on linux** as the docker **image is debian** and the native image compiles only for the current system
+### Requirements
 
-> Build [`./mvn clean package -Pnative`]
+* Docker (4GB memory - otherwise exit 137)
+* ~ 5min build time (first build)
+* Result: ~ 140mb
 
-> Build docker image [`docker build -t app-native .`]
+> Build [`docker build -t app-native .`]
 
 > run [`docker run --rm -p 8080:8080 app-native`]
 
-> Build & Run [`./mvn clean package && docker build -t app-native . && docker run --rm -p 8080:8080 app-native`]
+> Build & Run [`docker build -t app-native . && docker run --rm -p 8080:8080 app-native`]
 
 
 [build_shield]: https://github.com/codespacedev/spring-boot-native-example/workflows/JAVA_RELEASE/badge.svg
