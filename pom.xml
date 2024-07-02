@@ -35,7 +35,7 @@
         <project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${project.encoding}</project.reporting.outputEncoding>
         <project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
-        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>4.0.0-beta-1</maven-compiler-plugin.version>
     </properties>
 
     <dependencies>
