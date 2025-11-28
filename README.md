@@ -32,7 +32,7 @@ Example of how to run *Spring Boot Native* **without parent**
 
 ### Requirements
 
-* JDK 17
+* JDK 25
 * Result: ~ 18mb
 
 > Build [`./mvnw clean package`]
@@ -45,7 +45,7 @@ Example of how to run *Spring Boot Native* **without parent**
 
 ### Requirements
 
-* JDK 17
+* JDK 25
 * [Graalvm](https://www.graalvm.org/22.0/docs/getting-started/#install-graalvm) ([brew](https://github.com/graalvm/homebrew-tap))
 * Create native image (`gu install native-image`)
 * Result: ~ 60mb
@@ -119,6 +119,6 @@ Example of how to run *Spring Boot Native* **without parent**
 
 [gitter_link]: https://gitter.im/spring-boot-native-example/Lobby
 
-[java_version]: https://img.shields.io/badge/java-17-blueviolet?style=flat-square
+[java_version]: https://img.shields.io/badge/java-25-blueviolet?style=flat-square
 
 [spring_boot]: https://img.shields.io/badge/springboot-3-blueviolet?style=flat-square

@@ -28,7 +28,7 @@
         <maven-failsafe-plugin.version>3.5.4</maven-failsafe-plugin.version>
         <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
         <!-- BUILD-->
-        <java-version>17</java-version>
+        <java-version>25</java-version>
         <maven.compiler.source>${java-version}</maven.compiler.source>
         <maven.compiler.target>${java-version}</maven.compiler.target>
         <project.encoding>UTF-8</project.encoding>
@@ -74,6 +74,12 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>6.0.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -179,6 +185,7 @@
                 <configuration>
                     <source>${java-version}</source>
                     <target>${java-version}</target>
+                    <release>${java-version}</release>
                 </configuration>
             </plugin>
             <!-- TEST -->
